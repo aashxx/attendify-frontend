@@ -1,0 +1,988 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Condensed&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Variable declarations
+$font-primary: 'Inconsolata', monospace;
+$font-secondary: 'Roboto Condensed', sans-serif;
+$color-primary: rgb(238, 230, 230);
+$color-secondary: #f8cf38;
+$color-sec-hover: #ebbb0d;
+$text-color: rgb( 24 49 83 );
+
+// Mixins functions for buttons
+@mixin button() {
+    padding: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: $font-primary;
+    font-weight: bold;
+    background-color: $color-secondary;
+    color: $text-color;
+    border: 2px solid $text-color;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+
+@mixin button-hover() {
+    // background-color: $color-sec-hover;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+@mixin input() {
+    width: 400px;
+    height: 35px;
+    padding: 7px;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid $text-color;
+    font-size: 1rem;
+    font-family: $font-primary;
+}
+
+// Animations
+@keyframes unloader {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes tilt {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes load {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+body {
+    background-color: $color-primary;
+    min-height: 100vh;
+    background: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+}
+
+// Document Selections
+h1::selection, h2::selection, h5::selection, span::selection, div::selection, img::selection, label::selection, i::selection, li::selection, p::selection, strong::selection {
+    background-color: $color-secondary;
+    color: whitesmoke;
+}
+
+button::selection, a::selection {
+    background-color: $text-color;
+    color: whitesmoke;
+}
+
+footer, .review-item {
+    h1::selection, h2::selection, h5::selection, span::selection, div::selection, img::selection, label::selection, i::selection, li::selection, p::selection {
+        background-color: $text-color;
+        color: whitesmoke;
+    }
+}
+
+// Loader Component
+.loader {
+    height: 50vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+// Submit button animation
+#button-anime {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Submit button animation - loader
+#btn-loader {
+    pointer-events: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 3px solid $text-color;
+    border-top-color: whitesmoke;
+    animation: load 5s ease infinite;
+}
+
+// Splash Screen
+#splash-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    transition: all 2s;
+    background-color: $color-secondary;
+
+    h1 {
+        font-size: 4rem;
+        font-family: $font-primary;
+        color: $text-color;
+    }
+
+    img {
+        max-height: 100px;
+        max-width: 100px;
+    }
+}
+
+// Navbar component
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: $font-primary;
+    position: sticky;
+    top: 0;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    z-index: 2;
+
+    .logo {
+        font-size: 2rem;
+        margin: 10px;
+        font-weight: bold;
+
+        a {
+            text-decoration: none;
+            color: $text-color;
+        }
+    }
+
+    .nav-items {
+        ul {
+            display: flex;
+            gap: 50px;
+            
+            li {
+                list-style: none;
+                transition: all 0.3s ease-out;
+                padding: 5px;
+                border-bottom: 2px solid whitesmoke;
+                
+                a {
+                    text-decoration: none;
+                    color: $text-color;
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                }
+            }
+
+            li:last-of-type {
+                margin-right: 10px;
+            }
+
+            li:active {
+                background-color: $color-secondary;
+                border-radius: 5px;
+            }
+
+            li:hover {
+                border-bottom: 2px solid $color-secondary;
+            }
+        }
+    }
+
+    // Responsive nav
+    .res-nav {
+
+        button {
+            background: transparent;
+            outline: none;
+            border: none;
+            
+            i {
+                font-size: 1.2rem;
+                color: $text-color;
+            }
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        .res-nav {
+            display: none;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+    }
+
+    .account {
+        @include button();
+        border-radius: 50%;
+        margin-left: 10px;
+        margin-right: 45px;
+    }
+
+    .addSub:hover, .account:hover {
+        @include button-hover();
+    }
+}
+
+// Account Name and Logout
+.accountDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    font-family: $font-primary;
+    color: $text-color;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 5px;
+
+    button {
+        @include button();
+    }
+
+    button:hover {
+        @include button-hover();
+    }
+}
+
+// Home page window
+.home {
+    .home-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 50px 120px 0 120px;
+    
+        h1 {
+            font-size: 3.6rem;
+            margin-top: 30px;
+            font-family: $font-primary;
+            color: $text-color;
+            padding: 7px;
+            border-radius: 10px;
+    
+            span {
+                color: $text-color;
+                background-color: $color-secondary;
+                padding: 7px;
+                border-radius: 10px;
+            }
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-top: 30px;
+            font-family: $font-primary;
+            color: $text-color;
+            padding: 7px;
+            border-radius: 10px;
+            width: 800px;
+            text-align: center;
+
+            span {
+                color: $text-color;
+                background-color: $color-secondary;
+                padding: 7px;
+                border-radius: 10px;
+            }
+        }
+    
+        h5 {
+            margin-top: 30px;
+            font-family: $font-primary;
+            color: $text-color;
+            font-size: 1.4rem;
+        }
+    
+        a {
+            text-decoration: none;
+            color: $text-color;
+            background-color: transparent;
+            padding: 5px;
+            font-family: $font-primary;
+            border-radius: 3px;
+            font-weight: bolder;
+            margin-top: 30px;
+            border: 2px solid $text-color;
+            height: 45px;
+            width: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+    
+            i {
+                margin-left: 7px;
+            }
+        }
+
+        a::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            width: 0;
+            background-color: $color-secondary;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all 0.5s ease-out;
+        }
+
+        a:hover:before {
+            width: 100%;
+        }
+    }
+}
+
+// Home page images
+.subsBg {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 50px;
+    padding: 0 45px;
+
+    div {
+        animation: tilt 4s linear infinite;
+        z-index: -1;
+
+        img {
+            max-height: 500px;
+            max-width: 500px;
+        }
+    }
+}
+
+// Add subject form popup component
+.newSubForm {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    border: 2px solid $text-color;
+
+    .closebtn {
+        display: flex;
+        justify-content: flex-end;
+
+        .close {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-size: 1.6rem;
+            margin: 2px 7px 0 0;
+            text-align: end;
+            cursor: pointer;
+        }
+    }
+
+    .newSub {
+        font-family: $font-primary;
+        font-size: 1.4rem;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 24px;
+    
+        input {
+            @include input();
+        }
+    
+        .subBtns {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    
+        button {
+            @include button();
+            width: 100px;
+        }
+
+        button:hover {
+            @include button-hover();
+        }
+    }
+}
+
+// Alert Component
+.alertBox {
+    width: 300px;
+    height: 30px;
+    border-radius: 4px;
+    border: 2px solid $text-color;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 18px;
+    left: 520px;
+
+    p {
+        font-family: $font-primary;
+        color: $text-color;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .unloads {
+        width: 0;
+        background-color: $text-color;
+        height: 5px;
+        position: relative;
+        margin-bottom: 0;
+        animation: unloader 2s ease-out reverse;
+    }
+}
+
+// Signup and Login forms
+.signForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 55px - 20px);
+    font-family: $font-primary;
+    color: $text-color;
+    
+    h1 {
+        font-size: 3.6rem;
+        margin-bottom: 30px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        justify-content: center;
+        align-items: center;
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            font-weight: bold;
+
+            label {
+                margin-left: 7px;
+            }
+        }
+
+        input {
+            @include input();
+        }
+
+        button {
+            @include button();
+            width: 120px; 
+            margin: 24px 0;
+            transition: all 0.5s;
+        }
+
+        button:hover {
+            @include button-hover();
+        }
+    }
+
+    p {
+        font-weight: bold;
+    }
+
+    // Show Password
+    .showPass {
+        align-self: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        input[type=checkbox] {
+            width: 20px;
+            height: 20x;
+            border-radius: 10px;
+            border: 2px solid $text-color;
+            background-color: $color-secondary;
+            cursor: pointer;
+        }
+
+        label {
+            font-weight: bolder;
+        }
+    }
+}
+
+// Signup validation
+.validation {
+    text-align: center;
+    font-size: 0.9rem;
+    width: 350px;
+    color: #e5322d;
+    font-weight: lighter;
+}
+
+// Subject Item component
+.subItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1000px;
+    font-family: $font-secondary;
+    background-color: whitesmoke;
+    font-size: 1.2rem;
+    color: $text-color;
+    border: 2px solid $text-color;
+    border-radius: 15px;
+    padding: 13px;
+    margin-bottom: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    .subName {
+        width: 325px;
+    }
+
+    .confirmRename {
+        @include button();
+    }
+
+    .confirmRename:hover {
+        @include button-hover();
+    }
+
+    .present, .percent {
+        font-weight: bold;
+    }
+
+    .clicks {
+        button {
+            @include button();
+            margin: 0 2px;
+        }
+
+        button:hover {
+            @include button-hover();
+        }
+
+        .kebab {
+            background: whitesmoke;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            font-size: 1.2rem;
+        }
+
+        .kebab:hover {
+            background-color: whitesmoke;
+            box-shadow: none;
+        }
+    }
+}
+
+// Options button in subjects items component
+.options {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    
+    button {
+        background: white;
+        border: none;
+        outline: none;
+        font-family: $font-primary;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: bold;
+        color: $text-color;
+        padding: 7px;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: rgb(228, 218, 218);
+    }
+}
+
+// No Subjects component
+.noSubs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    h1 {
+        text-align: center;
+        font-family: $font-primary;
+        color: $text-color;
+    }
+}
+
+// Subjects Dashboard
+.subJects {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 55px - 20px);
+}
+
+// Add Subject form
+.addSub { 
+    @include button();
+    height: 65px;
+    width: 145px;
+    position: fixed;
+    bottom: 66px;
+    right: 66px;
+    font-size: 1.1rem;
+
+    i {
+        margin-right: 3px;
+    }
+}
+
+.addSub:hover {
+    @include button-hover();
+}
+
+// Reviews Component
+.reviews {
+    h1 {
+        text-align: center;
+        font-family: $font-primary;
+        color: $text-color;
+        font-size: 3.6rem;
+        margin: 30px 0;
+    }
+
+    .reviews-body {
+        margin: 0 120px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .review-item {
+        border: 2px solid $text-color;
+        width: 350px;
+        border-radius: 7px;
+        padding: 7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: $font-primary;
+        color: $text-color;
+        background-color: $color-secondary;
+        font-size: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+
+        .review {
+            font-weight: bolder;
+            margin-bottom: 14px;
+        }
+
+        .name, .date {
+            text-align: center;
+        }
+    }
+
+    // Add reviews form
+    .add-reviews {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            font-size: 2rem;
+            margin-top: 60px
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 0 0 60px 0;
+
+            input {
+                @include input();
+            }
+
+            textarea {
+                @include input();
+                height: 220px;
+            }
+
+            button {
+                @include button();
+                height: 45px;
+                width: 120px;
+                transition: all 0.5s;
+            }
+
+            button:hover {
+                @include button-hover();
+            }
+        }
+    }
+}
+
+
+// Footer Component
+footer {
+    width: 100%;
+    background-color: $color-secondary;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+    .footer-items {
+        color: $text-color;
+        font-family: $font-primary;
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin: 10px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .f-items {
+        width: 250px;
+        margin: 10px 0;
+
+        ul {
+            li {
+                font-size: .8rem;
+                margin: 2px;
+                list-style: none;
+
+                a {
+                    text-decoration: none;
+                    color: $text-color;
+                }
+            }
+        }
+    }
+
+    .follow {
+        color: $text-color;
+        text-align: center;
+        font-size: 1.1rem;
+
+        i {
+            color: $text-color;
+            margin: 0 6px 10px 6px;
+            opacity: .5;
+        }
+    }
+}
+
+// Responsive design for tablet screens
+@media screen and (max-width: 950px) {
+    .subItem {
+        width: 90%;
+
+        .subName {
+            width: 230px;
+        }
+    }
+
+    .alertBox {
+        left: 275px;
+    }
+
+    .reviews {
+        .reviews-body {
+            margin: 0 50px;
+        }
+    }
+
+    .home {
+        .home-body {
+            margin: 50px 45px 0 45px;
+
+            h1 {
+                text-align: center;
+                width: 300px;
+            }
+
+            h2 {
+                font-size: 2.6rem;
+            }
+
+            .subsBg {
+                padding: 0;
+
+                img {
+                    max-width: 300px;
+                    max-height: 300px;
+                }
+            }
+        }
+    }
+}
+
+// Responsive designs for mobile screens
+@media screen and (max-width: 415px) {
+    #splash-screen {
+        h1 {
+            font-size: 2.6rem;
+        }
+    }
+
+    .nav-items {
+        display: none;
+    }
+
+    .subJects {
+        width: 100%;
+    }
+
+    .subItem {
+        width: 95%;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .subName {
+        width: 3px;
+    }
+
+    input {
+        max-width: 300px;
+    }
+
+    .alertBox {
+        left: 50px;
+    }
+
+    .validation {
+        width: 280px;
+    }
+
+    .addSub {
+        right: 30px;
+    }
+
+    nav {
+        .nav-items {
+            position: absolute;
+            top: 52px;
+            width: 100%;
+            background-color: whitesmoke;
+            border-radius: 7px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+            ul {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+        }
+
+        .account {
+            margin-right: 25px;
+            box-shadow: none;
+        }
+
+        .account:hover {
+            box-shadow: none;
+        }
+    }
+
+    .reviews {
+        .reviews-body {
+            margin: 0 25px;
+        }
+        
+        .add-reviews {
+            form {
+                textarea {
+                    width: 300px;
+                }
+            }
+        }
+    }
+
+    .home {
+        .home-body {
+            margin: 50px 50px 0 50px;
+
+            h1 {
+                font-size: 2.6rem;
+                text-align: center;
+                width: 220px;
+
+                span {
+                    padding: 3px;
+                }
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                width: 350px;
+
+                span {
+                    padding: 2px;
+                }
+            }
+
+            h5 {
+                font-size: 1rem;
+                width: 300px;
+                text-align: center;
+            }
+
+            .subsBg {
+                padding: 0;
+                gap: 100px;
+
+                img {
+                    max-width: 300px;
+                    max-height: 300px;
+                    align-self: center;
+                }
+
+                .bg6 {
+                    display: none;
+                }
+            }
+        }
+    }
+}

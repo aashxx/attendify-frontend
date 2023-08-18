@@ -1,13 +1,885 @@
-body {
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Roboto+Condensed&display=swap");
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@keyframes unloader {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
+@keyframes tilt {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes load {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+body {
+  background-color: rgb(238, 230, 230);
+  min-height: 100vh;
+  background: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+}
+
+h1::-moz-selection, h2::-moz-selection, h5::-moz-selection, span::-moz-selection, div::-moz-selection, img::-moz-selection, label::-moz-selection, i::-moz-selection, li::-moz-selection, p::-moz-selection, strong::-moz-selection {
+  background-color: #f8cf38;
+  color: whitesmoke;
+}
+
+h1::selection, h2::selection, h5::selection, span::selection, div::selection, img::selection, label::selection, i::selection, li::selection, p::selection, strong::selection {
+  background-color: #f8cf38;
+  color: whitesmoke;
+}
+
+button::-moz-selection, a::-moz-selection {
+  background-color: rgb(24, 49, 83);
+  color: whitesmoke;
+}
+
+button::selection, a::selection {
+  background-color: rgb(24, 49, 83);
+  color: whitesmoke;
+}
+
+footer h1::-moz-selection, footer h2::-moz-selection, footer h5::-moz-selection, footer span::-moz-selection, footer div::-moz-selection, footer img::-moz-selection, footer label::-moz-selection, footer i::-moz-selection, footer li::-moz-selection, footer p::-moz-selection, .review-item h1::-moz-selection, .review-item h2::-moz-selection, .review-item h5::-moz-selection, .review-item span::-moz-selection, .review-item div::-moz-selection, .review-item img::-moz-selection, .review-item label::-moz-selection, .review-item i::-moz-selection, .review-item li::-moz-selection, .review-item p::-moz-selection {
+  background-color: rgb(24, 49, 83);
+  color: whitesmoke;
+}
+
+footer h1::selection, footer h2::selection, footer h5::selection, footer span::selection, footer div::selection, footer img::selection, footer label::selection, footer i::selection, footer li::selection, footer p::selection, .review-item h1::selection, .review-item h2::selection, .review-item h5::selection, .review-item span::selection, .review-item div::selection, .review-item img::selection, .review-item label::selection, .review-item i::selection, .review-item li::selection, .review-item p::selection {
+  background-color: rgb(24, 49, 83);
+  color: whitesmoke;
+}
+
+.loader {
+  height: 50vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader img {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+#button-anime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#btn-loader {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 3px solid rgb(24, 49, 83);
+  border-top-color: whitesmoke;
+  animation: load 5s ease infinite;
+}
+
+#splash-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  transition: all 2s;
+  background-color: #f8cf38;
+}
+#splash-screen h1 {
+  font-size: 4rem;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+}
+#splash-screen img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Inconsolata", monospace;
+  position: sticky;
+  top: 0;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 2;
+}
+nav .logo {
+  font-size: 2rem;
+  margin: 10px;
+  font-weight: bold;
+}
+nav .logo a {
+  text-decoration: none;
+  color: rgb(24, 49, 83);
+}
+nav .nav-items ul {
+  display: flex;
+  gap: 50px;
+}
+nav .nav-items ul li {
+  list-style: none;
+  transition: all 0.3s ease-out;
+  padding: 5px;
+  border-bottom: 2px solid whitesmoke;
+}
+nav .nav-items ul li a {
+  text-decoration: none;
+  color: rgb(24, 49, 83);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+nav .nav-items ul li:last-of-type {
+  margin-right: 10px;
+}
+nav .nav-items ul li:active {
+  background-color: #f8cf38;
+  border-radius: 5px;
+}
+nav .nav-items ul li:hover {
+  border-bottom: 2px solid #f8cf38;
+}
+nav .res-nav button {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+nav .res-nav button i {
+  font-size: 1.2rem;
+  color: rgb(24, 49, 83);
+}
+@media screen and (min-width: 800px) {
+  nav .res-nav {
+    display: none;
+  }
+}
+nav .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+nav .account {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  border-radius: 50%;
+  margin-left: 10px;
+  margin-right: 45px;
+}
+nav .addSub:hover, nav .account:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.accountDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  gap: 10px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.accountDetails button {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.accountDetails button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.home .home-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 120px 0 120px;
+}
+.home .home-body h1 {
+  font-size: 3.6rem;
+  margin-top: 30px;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  padding: 7px;
+  border-radius: 10px;
+}
+.home .home-body h1 span {
+  color: rgb(24, 49, 83);
+  background-color: #f8cf38;
+  padding: 7px;
+  border-radius: 10px;
+}
+.home .home-body h2 {
+  font-size: 3rem;
+  margin-top: 30px;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  padding: 7px;
+  border-radius: 10px;
+  width: 800px;
+  text-align: center;
+}
+.home .home-body h2 span {
+  color: rgb(24, 49, 83);
+  background-color: #f8cf38;
+  padding: 7px;
+  border-radius: 10px;
+}
+.home .home-body h5 {
+  margin-top: 30px;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  font-size: 1.4rem;
+}
+.home .home-body a {
+  text-decoration: none;
+  color: rgb(24, 49, 83);
+  background-color: transparent;
+  padding: 5px;
+  font-family: "Inconsolata", monospace;
+  border-radius: 3px;
+  font-weight: bolder;
+  margin-top: 30px;
+  border: 2px solid rgb(24, 49, 83);
+  height: 45px;
+  width: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.home .home-body a i {
+  margin-left: 7px;
+}
+.home .home-body a::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0;
+  background-color: #f8cf38;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.5s ease-out;
+}
+.home .home-body a:hover:before {
+  width: 100%;
+}
+
+.subsBg {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 50px;
+  padding: 0 45px;
+}
+.subsBg div {
+  animation: tilt 4s linear infinite;
+  z-index: -1;
+}
+.subsBg div img {
+  max-height: 500px;
+  max-width: 500px;
+}
+
+.newSubForm {
+  background-color: whitesmoke;
+  border-radius: 15px;
+  border: 2px solid rgb(24, 49, 83);
+}
+.newSubForm .closebtn {
+  display: flex;
+  justify-content: flex-end;
+}
+.newSubForm .closebtn .close {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 1.6rem;
+  margin: 2px 7px 0 0;
+  text-align: end;
+  cursor: pointer;
+}
+.newSubForm .newSub {
+  font-family: "Inconsolata", monospace;
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 24px;
+}
+.newSubForm .newSub input {
+  width: 400px;
+  height: 35px;
+  padding: 7px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid rgb(24, 49, 83);
+  font-size: 1rem;
+  font-family: "Inconsolata", monospace;
+}
+.newSubForm .newSub .subBtns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+.newSubForm .newSub button {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  width: 100px;
+}
+.newSubForm .newSub button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.alertBox {
+  width: 300px;
+  height: 30px;
+  border-radius: 4px;
+  border: 2px solid rgb(24, 49, 83);
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 18px;
+  left: 520px;
+}
+.alertBox p {
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  font-weight: bold;
+  text-align: center;
+}
+.alertBox .unloads {
+  width: 0;
+  background-color: rgb(24, 49, 83);
+  height: 5px;
+  position: relative;
+  margin-bottom: 0;
+  animation: unloader 2s ease-out reverse;
+}
+
+.signForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 55px - 20px);
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+}
+.signForm h1 {
+  font-size: 3.6rem;
+  margin-bottom: 30px;
+}
+.signForm form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  justify-content: center;
+  align-items: center;
+}
+.signForm form .details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-weight: bold;
+}
+.signForm form .details label {
+  margin-left: 7px;
+}
+.signForm form input {
+  width: 400px;
+  height: 35px;
+  padding: 7px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid rgb(24, 49, 83);
+  font-size: 1rem;
+  font-family: "Inconsolata", monospace;
+}
+.signForm form button {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  width: 120px;
+  margin: 24px 0;
+  transition: all 0.5s;
+}
+.signForm form button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.signForm p {
+  font-weight: bold;
+}
+.signForm .showPass {
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signForm .showPass input[type=checkbox] {
+  width: 20px;
+  height: 20x;
+  border-radius: 10px;
+  border: 2px solid rgb(24, 49, 83);
+  background-color: #f8cf38;
+  cursor: pointer;
+}
+.signForm .showPass label {
+  font-weight: bolder;
+}
+
+.validation {
+  text-align: center;
+  font-size: 0.9rem;
+  width: 350px;
+  color: #e5322d;
+  font-weight: lighter;
+}
+
+.subItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1000px;
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: whitesmoke;
+  font-size: 1.2rem;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  border-radius: 15px;
+  padding: 13px;
+  margin-bottom: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.subItem .subName {
+  width: 325px;
+}
+.subItem .confirmRename {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.subItem .confirmRename:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.subItem .present, .subItem .percent {
+  font-weight: bold;
+}
+.subItem .clicks button {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  margin: 0 2px;
+}
+.subItem .clicks button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.subItem .clicks .kebab {
+  background: whitesmoke;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 1.2rem;
+}
+.subItem .clicks .kebab:hover {
+  background-color: whitesmoke;
+  box-shadow: none;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+}
+.options button {
+  background: white;
+  border: none;
+  outline: none;
+  font-family: "Inconsolata", monospace;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(24, 49, 83);
+  padding: 7px;
+  border-radius: 5px;
+}
+.options button:hover {
+  background-color: rgb(228, 218, 218);
+}
+
+.noSubs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.noSubs h1 {
+  text-align: center;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+}
+
+.subJects {
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 55px - 20px);
+}
+
+.addSub {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  height: 65px;
+  width: 145px;
+  position: fixed;
+  bottom: 66px;
+  right: 66px;
+  font-size: 1.1rem;
+}
+.addSub i {
+  margin-right: 3px;
+}
+
+.addSub:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.reviews h1 {
+  text-align: center;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  font-size: 3.6rem;
+  margin: 30px 0;
+}
+.reviews .reviews-body {
+  margin: 0 120px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.reviews .review-item {
+  border: 2px solid rgb(24, 49, 83);
+  width: 350px;
+  border-radius: 7px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Inconsolata", monospace;
+  color: rgb(24, 49, 83);
+  background-color: #f8cf38;
+  font-size: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+}
+.reviews .review-item .review {
+  font-weight: bolder;
+  margin-bottom: 14px;
+}
+.reviews .review-item .name, .reviews .review-item .date {
+  text-align: center;
+}
+.reviews .add-reviews {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.reviews .add-reviews h1 {
+  font-size: 2rem;
+  margin-top: 60px;
+}
+.reviews .add-reviews form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 60px 0;
+}
+.reviews .add-reviews form input {
+  width: 400px;
+  height: 35px;
+  padding: 7px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid rgb(24, 49, 83);
+  font-size: 1rem;
+  font-family: "Inconsolata", monospace;
+}
+.reviews .add-reviews form textarea {
+  width: 400px;
+  height: 35px;
+  padding: 7px;
+  border-radius: 10px;
+  outline: none;
+  border: 2px solid rgb(24, 49, 83);
+  font-size: 1rem;
+  font-family: "Inconsolata", monospace;
+  height: 220px;
+}
+.reviews .add-reviews form button {
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  background-color: #f8cf38;
+  color: rgb(24, 49, 83);
+  border: 2px solid rgb(24, 49, 83);
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+  height: 45px;
+  width: 120px;
+  transition: all 0.5s;
+}
+.reviews .add-reviews form button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+footer {
+  width: 100%;
+  background-color: #f8cf38;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+footer .footer-items {
+  color: rgb(24, 49, 83);
+  font-family: "Inconsolata", monospace;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+footer .f-items {
+  width: 250px;
+  margin: 10px 0;
+}
+footer .f-items ul li {
+  font-size: 0.8rem;
+  margin: 2px;
+  list-style: none;
+}
+footer .f-items ul li a {
+  text-decoration: none;
+  color: rgb(24, 49, 83);
+}
+footer .follow {
+  color: rgb(24, 49, 83);
+  text-align: center;
+  font-size: 1.1rem;
+}
+footer .follow i {
+  color: rgb(24, 49, 83);
+  margin: 0 6px 10px 6px;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 950px) {
+  .subItem {
+    width: 90%;
+  }
+  .subItem .subName {
+    width: 230px;
+  }
+  .alertBox {
+    left: 275px;
+  }
+  .reviews .reviews-body {
+    margin: 0 50px;
+  }
+  .home .home-body {
+    margin: 50px 45px 0 45px;
+  }
+  .home .home-body h1 {
+    text-align: center;
+    width: 300px;
+  }
+  .home .home-body h2 {
+    font-size: 2.6rem;
+  }
+  .home .home-body .subsBg {
+    padding: 0;
+  }
+  .home .home-body .subsBg img {
+    max-width: 300px;
+    max-height: 300px;
+  }
+}
+@media screen and (max-width: 415px) {
+  #splash-screen h1 {
+    font-size: 2.6rem;
+  }
+  .nav-items {
+    display: none;
+  }
+  .subJects {
+    width: 100%;
+  }
+  .subItem {
+    width: 95%;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .subName {
+    width: 3px;
+  }
+  input {
+    max-width: 300px;
+  }
+  .alertBox {
+    left: 50px;
+  }
+  .validation {
+    width: 280px;
+  }
+  .addSub {
+    right: 30px;
+  }
+  nav .nav-items {
+    position: absolute;
+    top: 52px;
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  }
+  nav .nav-items ul {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  nav .account {
+    margin-right: 25px;
+    box-shadow: none;
+  }
+  nav .account:hover {
+    box-shadow: none;
+  }
+  .reviews .reviews-body {
+    margin: 0 25px;
+  }
+  .reviews .add-reviews form textarea {
+    width: 300px;
+  }
+  .home .home-body {
+    margin: 50px 50px 0 50px;
+  }
+  .home .home-body h1 {
+    font-size: 2.6rem;
+    text-align: center;
+    width: 220px;
+  }
+  .home .home-body h1 span {
+    padding: 3px;
+  }
+  .home .home-body h2 {
+    font-size: 1.6rem;
+    width: 350px;
+  }
+  .home .home-body h2 span {
+    padding: 2px;
+  }
+  .home .home-body h5 {
+    font-size: 1rem;
+    width: 300px;
+    text-align: center;
+  }
+  .home .home-body .subsBg {
+    padding: 0;
+    gap: 100px;
+  }
+  .home .home-body .subsBg img {
+    max-width: 300px;
+    max-height: 300px;
+    align-self: center;
+  }
+  .home .home-body .subsBg .bg6 {
+    display: none;
+  }
+}/*# sourceMappingURL=index.css.map */
