@@ -39,6 +39,8 @@ const Navbar = () => {
           <li><Link onClick={handleCloseRef} to="/attendance">Attendance</Link></li>
           <li><Link onClick={handleCloseRef} to="/signup">Signup</Link></li>
           <li><Link onClick={handleCloseRef} to="/reviews">Reviews</Link></li>
+          <li><a href='https://thetypingspeedtestgame.netlify.app'>Typing Test</a></li>
+          <li><Link onClick={handleCloseRef} to="/reviews">Blog</Link></li>
         </ul>
       </div>    
       <div className='buttons'>
