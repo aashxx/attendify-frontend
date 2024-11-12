@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlertContext } from './AlertContext'; // Alerts Context API
 
@@ -144,6 +144,10 @@ const AuthState = (props) => {
         const json = await response.json();
         setUserName(json);
     }
+
+    useEffect(() => {
+        dispUsername();
+    }, []);
 
     // Logout method
     const handleLogout = () => {

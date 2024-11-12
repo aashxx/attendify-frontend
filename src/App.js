@@ -14,7 +14,6 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Reviews from './components/Reviews';
 import Splash from './components/Splash';
-import Blog from './components/Blog';
 
 const App = () => {
 
@@ -36,7 +35,6 @@ const App = () => {
                   <Route exact path='/signup' setProgress={setProgress} element={<Signup/>}/>
                   <Route exact path='/login' setProgress={setProgress} element={<Login/>}/>
                   <Route exact path='/reviews' setProgress={setProgress} element={<Reviews />} />
-                  <Route exact path='/blog' setProgress={setProgress} element={<Blog />} />
                 </Routes>
                 <Footer />
               </ReviewState>
